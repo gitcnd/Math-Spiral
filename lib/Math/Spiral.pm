@@ -17,11 +17,11 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
 
     use Math::Spiral;
 
-    my $s = new Math::Spiral();
+    my $s = Math::Spiral->new();
     my($xo,$yo)=$s->Next();
 
 
-    # perl -MMath::Spiral -e '$s=new Math::Spiral(); foreach(0..9) { ($xo,$yo)=$s->Next(); $chart[2+$xo][2+$yo]=$_; } foreach $y (0..4){foreach $x(0..4){if(defined($chart[$x][$y])){print $chart[$x][$y]} else {print " ";} } print "\n"}'
+    # perl -MMath::Spiral -e '$s=Math::Spiral->new(); foreach(0..9) { ($xo,$yo)=$s->Next(); $chart[2+$xo][2+$yo]=$_; } foreach $y (0..4){foreach $x(0..4){if(defined($chart[$x][$y])){print $chart[$x][$y]} else {print " ";} } print "\n"}'
 
 =head1 DESCRIPTION
 
@@ -36,7 +36,7 @@ It is useful for charting things where you need to concentrate something around 
 
     use Math::Spiral;
 
-    my $s = new Math::Spiral();
+    my $s = Math::Spiral->new();
 
     foreach(0..9) {
       ($xo,$yo)=$s->Next();	# Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc
@@ -88,7 +88,7 @@ None by default.
 
 Usage is
 
-    my $s = new Math::Spiral();
+    my $s = Math::Spiral->new();
 
 
 =head2 Next
@@ -174,7 +174,7 @@ sub Next {
   return @ret;
 } # Next
 
-# testing # perl -MMath::Spiral -e '$s=new Math::Spiral(); foreach(0..25) { ($xo,$yo)=$s->Next(); $chart[3+$xo][3+$yo]=$_; } foreach $y (0..6){foreach $x(0..6){if(defined($chart[$x][$y])){print chr(97+$chart[$x][$y])} else {print " ";} } print "\n"}'
+# testing # perl -MMath::Spiral -e '$s=Math::Spiral->new(); foreach(0..25) { ($xo,$yo)=$s->Next(); $chart[3+$xo][3+$yo]=$_; } foreach $y (0..6){foreach $x(0..6){if(defined($chart[$x][$y])){print chr(97+$chart[$x][$y])} else {print " ";} } print "\n"}'
 
 
 sub NextEq {
