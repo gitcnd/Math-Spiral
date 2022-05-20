@@ -9,7 +9,7 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
     my $s = Math::Spiral->new();
     my($xo,$yo)=$s->Next();
 
-    $s = Math::Spiral->new(a=>1, b=>1.5);
+    $s = Math::Spiral->new();
     ($xo,$yo)=$s->NextEq();
 
     # perl -MMath::Spiral -e '$s=Math::Spiral->new(); foreach(0..9) { ($xo,$yo)=$s->Next(); $chart[2+$xo][2+$yo]=$_; } foreach $y (0..4){foreach $x(0..4){if(defined($chart[$x][$y])){print $chart[$x][$y]} else {print " ";} } print "\n"}'
@@ -72,9 +72,19 @@ None by default.
 
 ## new
 
+Return a new C<Math::Spiral> object.
+
+Optional arguments for computation of C<NextEq> coordinates and their
+defaults:
+
+    a: 1
+    b: 1
+    t_inc: 1
+    t_cb: undef
+
 Usage is
 
-    my $s = Math::Spiral->new();
+    my $s = Math::Spiral->new(%arguments);
 
 ## Next
 
