@@ -4,6 +4,8 @@ use warnings;
 
 # This is a full example of an SVG spiral plot.
 # Usage: perl eg/svg_spiral_eq.pl > spiral.svg
+# To render Archimedes or logarithmic spirals, please see the source
+# code comments below!
 
 use Math::Spiral;
 use Math::Trig qw(cot);
