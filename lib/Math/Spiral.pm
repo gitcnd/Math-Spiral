@@ -63,6 +63,9 @@ It is useful for charting things where you need to concentrate something around 
 
 =head2 EXAMPLE
 
+    use Math::Trig qw(cot);
+    use Math::Spiral;
+
     my $s = Math::Spiral->new(
       a=>1, b=>1.5, t_inc=>0.03,
       t_cb => sub { # Logarithmic
