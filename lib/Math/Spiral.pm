@@ -143,7 +143,7 @@ sub new {
   my $this={};
   foreach(qw(a b t_inc t_cb)){ $this->{$_}=$args{$_} }
   foreach(qw(x xmin y ydir ymin t)){ $this->{$_}=0; }
-  foreach(qw(xdir xmax ymax t_inc)){ $this->{$_}||=1; }
+  foreach(qw(xdir xmax ymax a b t_inc)){ $this->{$_}//=1; }
   # my($x,$xdir,$xmax,$xmin) = (0,1,1,0);
   # my($y,$ydir,$ymax,$ymin) = (0,0,1,0);
   bless $this,$class;
