@@ -3,6 +3,8 @@ package Math::Spiral;
 use strict;
 use warnings;
 
+use Math::Trig qw(pi);
+
 # perl -MPod::Markdown -e 'Pod::Markdown->new->filter(@ARGV)' lib/Math/Spiral.pm  > README.md
 
 =head1 NAME
@@ -59,6 +61,22 @@ It is useful for charting things where you need to concentrate something around 
  501 
  432 
 
+=head2 EXAMPLE
+
+    use Math::Trig qw(cot);
+    use Math::Spiral;
+
+    my $s = Math::Spiral->new(
+      a=>1, b=>1.5, t_inc=>0.03,
+      t_cb => sub { # Logarithmic
+        my $self = shift;
+        return $self->{a} * exp($self->{t} * cot($self->{b}));
+      },
+    );
+
+    foreach(0..9) {
+      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+    }
 
 =head2 EXPORT
 
@@ -83,6 +101,10 @@ Usage is
     my($xo,$yo)=$s->Next();
     # Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
 
+=head2 NextEq
+
+Returns the next x and y points given the polar equation for a spiral.  Default: Archimedean
+
 =cut
 
 require Exporter;
@@ -100,9 +122,11 @@ our @EXPORT = qw( );
 
 sub new {
   my $class = shift;
+  my %args = @_;
   my $this={};
-  foreach(qw(x xmin y ydir ymin)){ $this->{$_}=0; }
-  foreach(qw(xdir xmax ymax)){ $this->{$_}=1; }
+  foreach(qw(a b t_inc t_cb)){ $this->{$_}=$args{$_} }
+  foreach(qw(x xmin y ydir ymin t)){ $this->{$_}=0; }
+  foreach(qw(xdir xmax ymax t_inc)){ $this->{$_}||=1; }
   # my($x,$xdir,$xmax,$xmin) = (0,1,1,0);
   # my($y,$ydir,$ymax,$ymin) = (0,0,1,0);
   bless $this,$class;
@@ -134,6 +158,23 @@ sub Next {
 
 # testing # perl -MMath::Spiral -e '$s=new Math::Spiral(); foreach(0..25) { ($xo,$yo)=$s->Next(); $chart[3+$xo][3+$yo]=$_; } foreach $y (0..6){foreach $x(0..6){if(defined($chart[$x][$y])){print chr(97+$chart[$x][$y])} else {print " ";} } print "\n"}'
 
+
+sub NextEq {
+  my $this = shift;
+
+  my @ret=($this->{x},$this->{y});
+
+  my $r = $this->{t_cb}
+    ? $this->{t_cb}->($this)
+    : $this->{a} + $this->{b} * $this->{t}; # Archimedean default
+
+  $this->{x} += $r * cos($this->{t} / pi);
+  $this->{y} += $r * sin($this->{t} / pi);
+
+  $this->{t} += $this->{t_inc};
+
+  return @ret;
+} # NextEq
 
 
 1;
