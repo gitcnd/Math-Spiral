@@ -110,7 +110,7 @@ Usage is
     my($xo,$yo)=$s->NextEq();
     # Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
 
-=head1 SEE ALSO
+## SEE ALSO
 
 The eg/svg_spiral_eq.pl example program and the t/Math-Spiral.t tests
 
