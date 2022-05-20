@@ -13,9 +13,8 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
 
 =head1 SYNOPSIS
 
-
     #!/usr/bin/perl -w
-      
+
     use Math::Spiral;
 
     my $s = new Math::Spiral();
@@ -34,7 +33,7 @@ It is useful for charting things where you need to concentrate something around 
 =head2 EXAMPLE
 
     #!/usr/bin/perl -w
-      
+
     use Math::Spiral;
 
     my $s = new Math::Spiral();
@@ -76,14 +75,12 @@ It is useful for charting things where you need to concentrate something around 
 
     foreach(0..9) {
       ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+      # Now add as a point to a growing plot, for instance.
     }
 
 =head2 EXPORT
 
 None by default.
-
-
-=head2 Notes
 
 =head2 new
 
@@ -103,7 +100,21 @@ Usage is
 
 =head2 NextEq
 
-Returns the next x and y points given the polar equation for a spiral.  Default: Archimedean
+Returns the next x and y points given the polar equation for a spiral.
+
+The relevant arguments are B<t> (theta), B<t_inc> (the increment), and
+B<t_cb> (the theta callback).  B<t> is an interally computed value.
+But the others can be given in the constructor.
+
+The callback method is for defining a differnent kind of spiral.  The
+example above shows how to set this to compute the coordinates of a
+logarithmic spiral.
+
+This method is handy for plotting the points of a spiral drawing.  The
+spacing between points is entirely given by the polar equation and
+consists of floating point numbers.
+
+Default: Archimedean
 
 =cut
 
@@ -181,10 +192,17 @@ sub NextEq {
 
 __END__
 
+=head1 SEE ALSO
+
+The F<eg/svg_spiral_eq.pl> example program and the F<t/Math-Spiral.t> tests
+
+L<https://en.wikipedia.org/wiki/Archimedean_spiral>
+
+L<https://en.wikipedia.org/wiki/Logarithmic_spiral>
+
 =head1 AUTHOR
 
 This module was written by Chris Drake F<cdrake@cpan.org>
-
 
 =head1 COPYRIGHT AND LICENSE
 
