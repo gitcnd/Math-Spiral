@@ -100,9 +100,10 @@ Usage is
 
 Returns the next x and y points given the polar equation for a spiral.
 
-The relevant arguments are B<t> (theta), B<t_inc> (the increment), and
-B<t_cb> (the theta callback).  B<t> is an interally computed value.
-But the others can be given in the constructor.
+The relevant arguments are the constants B<a> and B<b>, B<t> (theta),
+B<t_inc> (the increment), and B<t_cb> (the theta callback).  B<t> is
+an interally computed value.  But the others can be given in the
+constructor.
 
 The callback method is for defining a differnent kind of spiral.  The
 example above shows how to set this to compute the coordinates of a
