@@ -112,11 +112,11 @@ Usage is
 
 =head1 SEE ALSO
 
-The F<eg/svg_spiral_eq.pl> example program and the F<t/Math-Spiral.t> tests
+The eg/svg_spiral_eq.pl example program and the t/Math-Spiral.t tests
 
-L<https://en.wikipedia.org/wiki/Archimedean_spiral>
+https://en.wikipedia.org/wiki/Archimedean_spiral
 
-L<https://en.wikipedia.org/wiki/Logarithmic_spiral>
+https://en.wikipedia.org/wiki/Logarithmic_spiral
 
 # AUTHOR
 
