@@ -54,7 +54,7 @@ It is useful for charting things where you need to concentrate something around 
 ## EXAMPLE
 
     my $s = Math::Spiral->new(
-      a=>1, b=>1.5, t_inc=>0.03,
+      a=>1, b=>1.5, t_inc=>0.3,
       t_cb => sub { # Logarithmic
         my $self = shift;
         return $self->{a} * exp($self->{t} * cot($self->{b}));
@@ -62,7 +62,7 @@ It is useful for charting things where you need to concentrate something around 
     );
 
     foreach(0..9) {
-      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0168, 0.0974), etc.
       # Now add as a point to a growing plot, for instance.
     }
 
