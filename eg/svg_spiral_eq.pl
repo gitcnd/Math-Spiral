@@ -2,6 +2,9 @@
 use strict;
 use warnings;
 
+# This is a full example of an SVG spiral plot.
+# Usage: perl eg/svg_spiral_eq.pl > spiral.svg
+
 use Math::Spiral;
 use Math::Trig qw(cot);
 use SVG qw(title);
