@@ -37,7 +37,7 @@ It is useful for charting things where you need to concentrate something around 
     my $s = Math::Spiral->new();
 
     foreach(0..9) {
-      ($xo,$yo)=$s->Next();	# Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc
+      ($xo,$yo)=$s->Next();	# Returns a sequence like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc
       $chart[2+$xo][2+$yo]=$_;
     }
 
@@ -72,7 +72,7 @@ It is useful for charting things where you need to concentrate something around 
     );
 
     foreach(0..9) {
-      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0168, 0.0974), etc.
+      ($xo,$yo)=$s->NextEq();	# Returns a sequence like (0,0) (1,0) (2.0168, 0.0974), etc.
       # Now add as a point to a growing plot, for instance.
     }
 
@@ -96,7 +96,7 @@ Returns the next x and y offsets (note that these start at 0,0 and will go negat
 Usage is
 
     my($xo,$yo)=$s->Next();
-    # Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
+    # Returns a sequence like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
 
 =head2 NextEq
 
@@ -120,7 +120,7 @@ Default: Archimedean
 Usage is
 
     my($xo,$yo)=$s->NextEq();
-    # Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+    # Returns a sequence like (0,0) (1,0) (2.0021, 0.0096), etc.
 
 =cut
 
