@@ -14,7 +14,7 @@ use SVG qw(title);
 my $A    = shift // 1;
 my $B    = shift // 1.5;
 my $incr = shift || 0.3; # 1 for Archimedes, 0.3 for logarithmic
-my $max  = shift || 157;
+my $max  = shift || 150;
 my $size = shift || 500;
 my $line = shift || 'black';
 my $fill = shift || 'black';
