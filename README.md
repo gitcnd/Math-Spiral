@@ -72,7 +72,7 @@ None by default.
 
 ## new
 
-Return a new C<Math::Spiral> object.
+Return a new Math::Spiral object.
 
 Optional arguments for computation of NextEq() coordinates and their
 defaults:
