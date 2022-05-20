@@ -51,6 +51,20 @@ It is useful for charting things where you need to concentrate something around 
     501 
     432 
 
+## EXAMPLE
+
+    my $s = Math::Spiral->new(
+      a=>1, b=>1.5, t_inc=>0.03,
+      t_cb => sub { # Logarithmic
+        my $self = shift;
+        return $self->{a} * exp($self->{t} * cot($self->{b}));
+      },
+    );
+
+    foreach(0..9) {
+      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+    }
+
 ## EXPORT
 
 None by default.
@@ -71,6 +85,10 @@ Usage is
 
     my($xo,$yo)=$s->Next();
     # Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
+
+## NextEq
+
+Returns the next x and y points given the polar equation for a spiral.  Default: Archimedean
 
 # AUTHOR
 
