@@ -4,8 +4,6 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
 
 # SYNOPSIS
 
-    #!/usr/bin/perl -w
-      
     use Math::Spiral;
 
     my $s = Math::Spiral->new();
@@ -23,8 +21,6 @@ It is useful for charting things where you need to concentrate something around 
 
 ## EXAMPLE
 
-    #!/usr/bin/perl -w
-      
     use Math::Spiral;
 
     my $s = Math::Spiral->new();

@@ -13,8 +13,6 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
 
 =head1 SYNOPSIS
 
-    #!/usr/bin/perl -w
-
     use Math::Spiral;
 
     my $s = Math::Spiral->new();
@@ -31,8 +29,6 @@ The numbers return "clockwise"; negate one if you want to go anti-clockwise inst
 It is useful for charting things where you need to concentrate something around the center of the chart.
 
 =head2 EXAMPLE
-
-    #!/usr/bin/perl -w
 
     use Math::Spiral;
 
