@@ -105,6 +105,11 @@ consists of floating point numbers.
 
 Default: Archimedean
 
+Usage is
+
+    my($xo,$yo)=$s->NextEq();
+    # Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+
 =head1 SEE ALSO
 
 The F<eg/svg_spiral_eq.pl> example program and the F<t/Math-Spiral.t> tests
