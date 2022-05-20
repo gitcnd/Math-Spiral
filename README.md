@@ -70,6 +70,8 @@ It is useful for charting things where you need to concentrate something around 
 
 None by default.
 
+# Methods
+
 ## new
 
 Usage is

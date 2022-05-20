@@ -82,6 +82,8 @@ It is useful for charting things where you need to concentrate something around 
 
 None by default.
 
+=head1 METHODS
+
 =head2 new
 
 Usage is
