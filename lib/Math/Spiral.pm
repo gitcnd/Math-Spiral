@@ -116,6 +116,11 @@ consists of floating point numbers.
 
 Default: Archimedean
 
+Usage is
+
+    my($xo,$yo)=$s->NextEq();
+    # Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+
 =cut
 
 require Exporter;
