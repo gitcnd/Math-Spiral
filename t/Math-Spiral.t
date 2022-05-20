@@ -8,30 +8,50 @@
 use strict;
 use warnings;
 
+use Math::Trig qw(cot);
 use Test::More;
+
 BEGIN { use_ok('Math::Spiral') };
-
-#########################
-
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
 
 # testing Next: perl -MMath::Spiral -e '$c=new Math::Spiral(); for(my $i=0;$i<5;$i++) { print "$i\t( " . join(", ",$c->Next()) . " )\n"; }'  # correct= ['204,81,81', '127,51,51', '81,204,204', '51,127,127', '142,204,81']
 
-my $s=new Math::Spiral();
-my $t='';
+subtest 'Next' => sub {
+  my $s=new Math::Spiral();
+  my $t='';
 
+  foreach(0..9) { my ($xo,$yo)=$s->Next(); $t .= "($xo,$yo) "; }
 
-foreach(0..9) { my ($xo,$yo)=$s->Next(); $t .= "($xo,$yo) "; }
+  ok($t eq '(0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ', "Next OK");
+};
 
-ok($t eq '(0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ', "Next OK");
+subtest 'Next Equation' => sub {
+  my $s=Math::Spiral->new(a=>1, b=>1);
+  my $t=[];
+
+  foreach(0..9) { my ($xo,$yo)=$s->NextEq(); push @$t, [$xo,$yo]; }
+
+  is_deeply($t->[0], [0,0], 'NextEq OK');
+  is_deeply($t->[1], [1,0], 'NextEq OK');
+  is(sprintf('%.1f', $t->[9][0]), -5.7, 'NextEq OK');
+  is(sprintf('%.1f', $t->[9][1]), 34.4, 'NextEq OK');
+};
+
+subtest 'Next Equation with callback' => sub {
+  my $s=Math::Spiral->new(
+    a=>1, b=>1,
+    t_cb => sub { # Logarithmic
+      my $self = shift;
+      return $self->{a} * exp($self->{t} * cot($self->{b}));
+    },
+  );
+  my $t=[];
+
+  foreach(0..9) { my ($xo,$yo)=$s->NextEq(); push @$t, [$xo,$yo]; }
+
+  is_deeply($t->[0], [0,0], 'NextEq OK');
+  is_deeply($t->[1], [1,0], 'NextEq OK');
+  is(sprintf('%.1f', $t->[9][0]), -198.3, 'NextEq OK');
+  is(sprintf('%.1f', $t->[9][1]), 256.3, 'NextEq OK');
+};
 
 done_testing();
-
-  # or
-  #          use Test::More;   # see done_testing()
-  #
-  #          require_ok( 'Some::Module' );
-  #
-  #          # Various ways to say "ok"
-  #          ok($got eq $expected, $test_name);
