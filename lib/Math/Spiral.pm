@@ -168,7 +168,7 @@ sub NextEq {
   $this->{x} += $r * cos($this->{t} / pi);
   $this->{y} += $r * sin($this->{t} / pi);
 
-  $this->{t} = $this->{t} + $this->{t_inc};
+  $this->{t} += $this->{t_inc};
 
   return @ret;
 } # NextEq
