@@ -88,7 +88,7 @@ Usage is
 
 ## Next
 
-Returns the next x and y offsets (note that these start at 0,0 and will go negative to circle around this origin)
+Returns the next x and y (integer) offsets (note that these start at 0,0 and will go negative to circle around this origin)
 
 Usage is
 
@@ -97,10 +97,10 @@ Usage is
 
 ## NextEq
 
-Returns the next x and y points given the polar equation for a spiral.
+Returns the next x and y (floating) points given the polar equation for the kind of spiral you want to use.
 
-The relevant arguments are the constants B<a> and B<b>, B<t> (theta),
-B<t_inc> (the increment), and B<t_cb> (the theta callback).  B<t> is
+The relevant arguments are the constants **a** and **b** , the **t** (theta),
+**t_inc** (the increment), and **t_cb** (the theta callback).  **t** is
 an interally computed value.  But the others can be given in the
 constructor.
 
@@ -129,7 +129,7 @@ https://en.wikipedia.org/wiki/Logarithmic_spiral
 
 # AUTHOR
 
-This module was written by Chris Drake `cdrake@cpan.org`
+This module was written by Chris Drake `cdrake@cpan.org` and [Gene Boggs](https://github.com/ology)
 
 # COPYRIGHT AND LICENSE
 
