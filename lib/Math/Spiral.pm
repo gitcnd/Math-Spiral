@@ -13,16 +13,15 @@ Math::Spiral - Perl extension to return an endless stream of X, Y offset coordin
 
 =head1 SYNOPSIS
 
-
-    #!/usr/bin/perl -w
-      
     use Math::Spiral;
 
-    my $s = new Math::Spiral();
+    my $s = Math::Spiral->new();
     my($xo,$yo)=$s->Next();
 
+    $s = Math::Spiral->new();
+    ($xo,$yo)=$s->NextEq();
 
-    # perl -MMath::Spiral -e '$s=new Math::Spiral(); foreach(0..9) { ($xo,$yo)=$s->Next(); $chart[2+$xo][2+$yo]=$_; } foreach $y (0..4){foreach $x(0..4){if(defined($chart[$x][$y])){print $chart[$x][$y]} else {print " ";} } print "\n"}'
+    # perl -MMath::Spiral -e '$s=Math::Spiral->new(); foreach(0..9) { ($xo,$yo)=$s->Next(); $chart[2+$xo][2+$yo]=$_; } foreach $y (0..4){foreach $x(0..4){if(defined($chart[$x][$y])){print $chart[$x][$y]} else {print " ";} } print "\n"}'
 
 =head1 DESCRIPTION
 
@@ -33,14 +32,12 @@ It is useful for charting things where you need to concentrate something around 
 
 =head2 EXAMPLE
 
-    #!/usr/bin/perl -w
-      
     use Math::Spiral;
 
-    my $s = new Math::Spiral();
+    my $s = Math::Spiral->new();
 
     foreach(0..9) {
-      ($xo,$yo)=$s->Next();	# Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc
+      ($xo,$yo)=$s->Next();	# Returns a sequence like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc
       $chart[2+$xo][2+$yo]=$_;
     }
 
@@ -67,7 +64,7 @@ It is useful for charting things where you need to concentrate something around 
     use Math::Spiral;
 
     my $s = Math::Spiral->new(
-      a=>1, b=>1.5, t_inc=>0.03,
+      a=>1, b=>1.5, t_inc=>0.3,
       t_cb => sub { # Logarithmic
         my $self = shift;
         return $self->{a} * exp($self->{t} * cot($self->{b}));
@@ -75,22 +72,31 @@ It is useful for charting things where you need to concentrate something around 
     );
 
     foreach(0..9) {
-      ($xo,$yo)=$s->NextEq();	# Returns a sequnce like (0,0) (1,0) (2.0021, 0.0096), etc.
+      ($xo,$yo)=$s->NextEq();	# Returns a sequence like (0,0) (1,0) (2.0168, 0.0974), etc.
+      # Now add as a point to a growing plot, for instance.
     }
 
 =head2 EXPORT
 
 None by default.
 
-
-=head2 Notes
+=head1 METHODS
 
 =head2 new
 
+Return a new C<Math::Spiral> object.
+
+Optional arguments for computation of C<NextEq> coordinates and their
+defaults:
+
+    a: 1
+    b: 1
+    t_inc: 1
+    t_cb: undef
+
 Usage is
 
-    my $s = new Math::Spiral();
-
+    my $s = Math::Spiral->new(%arguments);
 
 =head2 Next
 
@@ -99,11 +105,31 @@ Returns the next x and y offsets (note that these start at 0,0 and will go negat
 Usage is
 
     my($xo,$yo)=$s->Next();
-    # Returns a sequnce like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
+    # Returns a sequence like (0,0) (1,0) (1,1) (0,1) (-1,1) (-1,0) (-1,-1) (0,-1) (1,-1) (2,-1) ... etc (i.e. the x,y coordinates for a spiral)
 
 =head2 NextEq
 
-Returns the next x and y points given the polar equation for a spiral.  Default: Archimedean
+Returns the next x and y points given the polar equation for a spiral.
+
+The relevant arguments are the constants B<a> and B<b>, B<t> (theta),
+B<t_inc> (the increment), and B<t_cb> (the theta callback).  B<t> is
+an interally computed value.  But the others can be given in the
+constructor.
+
+The callback method is for defining a differnent kind of spiral.  The
+example above shows how to set this to compute the coordinates of a
+logarithmic spiral.
+
+This method is handy for plotting the points of a spiral drawing.  The
+spacing between points is entirely given by the polar equation and
+consists of floating point numbers.
+
+Default: Archimedean
+
+Usage is
+
+    my($xo,$yo)=$s->NextEq();
+    # Returns a sequence like (0,0) (1,0) (2.0021, 0.0096), etc.
 
 =cut
 
@@ -126,7 +152,7 @@ sub new {
   my $this={};
   foreach(qw(a b t_inc t_cb)){ $this->{$_}=$args{$_} }
   foreach(qw(x xmin y ydir ymin t)){ $this->{$_}=0; }
-  foreach(qw(xdir xmax ymax t_inc)){ $this->{$_}||=1; }
+  foreach(qw(xdir xmax ymax a b t_inc)){ $this->{$_}//=1; }
   # my($x,$xdir,$xmax,$xmin) = (0,1,1,0);
   # my($y,$ydir,$ymax,$ymin) = (0,0,1,0);
   bless $this,$class;
@@ -156,7 +182,7 @@ sub Next {
   return @ret;
 } # Next
 
-# testing # perl -MMath::Spiral -e '$s=new Math::Spiral(); foreach(0..25) { ($xo,$yo)=$s->Next(); $chart[3+$xo][3+$yo]=$_; } foreach $y (0..6){foreach $x(0..6){if(defined($chart[$x][$y])){print chr(97+$chart[$x][$y])} else {print " ";} } print "\n"}'
+# testing # perl -MMath::Spiral -e '$s=Math::Spiral->new(); foreach(0..25) { ($xo,$yo)=$s->Next(); $chart[3+$xo][3+$yo]=$_; } foreach $y (0..6){foreach $x(0..6){if(defined($chart[$x][$y])){print chr(97+$chart[$x][$y])} else {print " ";} } print "\n"}'
 
 
 sub NextEq {
@@ -181,10 +207,17 @@ sub NextEq {
 
 __END__
 
+=head1 SEE ALSO
+
+The F<eg/svg_spiral_eq.pl> example program and the F<t/Math-Spiral.t> tests
+
+L<https://en.wikipedia.org/wiki/Archimedean_spiral>
+
+L<https://en.wikipedia.org/wiki/Logarithmic_spiral>
+
 =head1 AUTHOR
 
 This module was written by Chris Drake F<cdrake@cpan.org>
-
 
 =head1 COPYRIGHT AND LICENSE
 
